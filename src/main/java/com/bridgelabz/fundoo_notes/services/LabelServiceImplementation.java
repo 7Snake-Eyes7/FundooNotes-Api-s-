@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,10 @@ import com.bridgelabz.fundoo_notes.Entity.LabelUpdate;
 import com.bridgelabz.fundoo_notes.Entity.NoteInformation;
 import com.bridgelabz.fundoo_notes.Entity.UserInformation;
 import com.bridgelabz.fundoo_notes.exception.UserException;
+import com.bridgelabz.fundoo_notes.repository.IUserRepository;
 import com.bridgelabz.fundoo_notes.repository.LabelRepository;
 import com.bridgelabz.fundoo_notes.repository.NoteRepository;
 import com.bridgelabz.fundoo_notes.util.JwtGenerator;
-import com.bridgelabz.fundoo_notes.repository.IUserRepository;
 
 @Service
 public class LabelServiceImplementation implements LabelService {
@@ -38,6 +39,9 @@ public class LabelServiceImplementation implements LabelService {
 
 	@Autowired
 	private NoteRepository noteRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Transactional
 	@Override
@@ -55,7 +59,8 @@ public class LabelServiceImplementation implements LabelService {
 		if (user != null) {
 			LabelInformation labelInfo = repository.fetchLabel(user.getUserId(), label.getName());
 			if (labelInfo == null) {
-				BeanUtils.copyProperties(label, LabelInformation.class);
+				labelInformation=modelMapper.map(label, LabelInformation.class);
+//				BeanUtils.copyProperties(label, LabelInformation.class);
 				labelInformation.getLabelId();
 				labelInformation.getName();
 				labelInformation.setUserId(user.getUserId());

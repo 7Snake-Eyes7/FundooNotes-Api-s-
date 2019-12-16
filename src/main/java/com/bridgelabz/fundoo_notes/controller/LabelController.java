@@ -2,9 +2,13 @@ package com.bridgelabz.fundoo_notes.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +33,7 @@ public class LabelController {
 	private LabelService service;
 
 	@PostMapping("/label/create")
+//	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto label, @RequestHeader("token") String token) {
 		System.out.println(label.getName());
 		service.createLabel(label, token);

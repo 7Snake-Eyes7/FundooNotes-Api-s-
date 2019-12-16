@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoo_notes.responses;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -10,6 +12,8 @@ public class Response {
 	private int statusCode;
 	
 	private Object obj;
+	
+	List<String>details;
 	
 	public Response(String message, int statusCode) {
 		
@@ -23,6 +27,11 @@ public class Response {
 		this.statusCode = statusCode;
 		this.obj=obj;
 	}
+
+//	public Response(int value, List<String> errors) {
+//		this.statusCode=value;
+//		this.details=details;
+//	}
 	
 
 }

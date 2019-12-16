@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ import com.bridgelabz.fundoo_notes.Entity.UserInformation;
 import com.bridgelabz.fundoo_notes.configurations.RedisConfig;
 import com.bridgelabz.fundoo_notes.exception.UserException;
 import com.bridgelabz.fundoo_notes.reddisrepository.RedisRepository;
+import com.bridgelabz.fundoo_notes.repository.IUserRepository;
 import com.bridgelabz.fundoo_notes.repository.NoteRepository;
 import com.bridgelabz.fundoo_notes.util.JwtGenerator;
-import com.bridgelabz.fundoo_notes.repository.IUserRepository;
 
 @Service
 public class NoteServiceImplementation implements NoteService {
@@ -50,6 +51,9 @@ public class NoteServiceImplementation implements NoteService {
 	@Autowired
 	private RedisRepository redisRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	
 
 	@Transactional
@@ -63,7 +67,8 @@ public class NoteServiceImplementation implements NoteService {
 			user = repository.getUserById(userid);
 			System.out.println("inside service" + user);
 			if (user != null) {
-				BeanUtils.copyProperties(information, NoteInformation.class);
+				noteinformation = modelMapper.map(information, NoteInformation.class);
+//				BeanUtils.copyProperties(information, NoteInformation.class);
 				noteinformation.setCreatedDateAndTime(LocalDateTime.now());
 				noteinformation.setArchieved(false);
 				noteinformation.setPinned(false);
@@ -72,19 +77,19 @@ public class NoteServiceImplementation implements NoteService {
 				user.getNote().add(noteinformation);
 				NoteInformation note = noteRepository.save(noteinformation);
 
-//				if(note!=null) {
-//					final String KEY=user.getEmail();
-//					try {	
-//						//redisTemplete.redistemplate().opsForValue().set(KEY, information);
-//						System.out.println(noteinformation);
-//						String check1 = elasticService.CreateNote(noteinformation);
-//
-//						System.out.println(check1);
-//					} 
-//					catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//				}
+				if(note!=null) {
+					final String KEY=user.getEmail();
+					try {	
+						//redisTemplete.redistemplate().opsForValue().set(KEY, information);
+						System.out.println(noteinformation);
+						String check1 = elasticService.CreateNote(noteinformation);
+
+						System.out.println(check1);
+					} 
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 
 			} else {
 				throw new UserException("note is not present with the given id ");
