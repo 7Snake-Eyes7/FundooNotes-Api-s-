@@ -80,7 +80,6 @@ public class NoteServiceImplementation implements NoteService {
 				if(note!=null) {
 					final String KEY=user.getEmail();
 					try {	
-						//redisTemplete.redistemplate().opsForValue().set(KEY, information);
 						System.out.println(noteinformation);
 						String check1 = elasticService.CreateNote(noteinformation);
 

@@ -42,7 +42,7 @@ public class UserController {
 	private JwtGenerator generate;
 	
 	@PostMapping("/user/registration")
-	@CachePut(value="user", key="#name")
+	@CachePut(value="user", key="#token")
 //	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseBody
 	public ResponseEntity<Response> registration(@RequestBody UserDto information) {
