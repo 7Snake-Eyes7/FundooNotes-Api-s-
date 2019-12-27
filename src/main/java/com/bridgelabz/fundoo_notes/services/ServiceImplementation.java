@@ -73,7 +73,7 @@ public class ServiceImplementation implements Services {
 //			reddisRepository.save(userInformation);
 			System.out.println("id" + " " + userInformation.getUserId());
 			System.out.println("token" + " " + generate.jwtToken(userInformation.getUserId()));
-			String mailResponse = response.formMessage("http://localhost:9020/user/verify/",
+			String mailResponse = response.formMessage("http://localhost:3000/user/verify/",
 					generate.jwtToken(userInformation.getUserId()));
 
 			mailObject.setEmail(information.getEmail());
@@ -101,7 +101,7 @@ public class ServiceImplementation implements Services {
 				System.out.println(generate.jwtToken(user.getUserId()));
 				return user;
 			} else {
-				String mailResponse = response.formMessage("http://localhost:9020/verify",
+				String mailResponse = response.formMessage("http://localhost:3000/verify",
 						generate.jwtToken(user.getUserId()));
 
 				MailServiceProvider.sendEmail(information.getEmail(), "verification", mailResponse);
@@ -159,7 +159,7 @@ public class ServiceImplementation implements Services {
 		try {
 			UserInformation user = repository.getUser(email);
 			if (user.isVerified() == true) {
-				String mailResponse = response.formMessage("http://localhost:9020/updatePassword",
+				String mailResponse = response.formMessage("http://localhost:3000/updatePassword",
 						generate.jwtToken(user.getUserId()));
 				MailServiceProvider.sendEmail(user.getEmail(), "verification", mailResponse);
 				return true;
