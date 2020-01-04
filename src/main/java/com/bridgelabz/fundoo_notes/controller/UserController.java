@@ -77,8 +77,8 @@ public class UserController {
 
 	}
 
-	@GetMapping("/user/verify/{token}")
-	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
+	@GetMapping("/user/verify")
+	public ResponseEntity<Response> userVerification(@RequestHeader String token) throws Exception {
 
 		System.out.println("token for verification" + token);
 		boolean update = service.verify(token);
@@ -104,8 +104,8 @@ public class UserController {
 
 	}
 
-	@PutMapping("user/update/{token}")
-	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
+	@PutMapping("user/update")
+	public ResponseEntity<Response> update(@RequestHeader String token, @RequestBody PasswordUpdate update) {
 		System.out.println("inside controller  " +update.getConfirmPassword());
 		System.out.println("inside controller  " +token);
 		boolean result = service.update(update, token);

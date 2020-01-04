@@ -73,9 +73,9 @@ public class ServiceImplementation implements Services {
 //			reddisRepository.save(userInformation);
 			System.out.println("id" + " " + userInformation.getUserId());
 			System.out.println("token" + " " + generate.jwtToken(userInformation.getUserId()));
-			String mailResponse = response.formMessage("http://localhost:3000/user/verify/",
+			String mailResponse = response.formMessage("http://localhost:3000/user/verify",
 					generate.jwtToken(userInformation.getUserId()));
-
+			System.out.println(mailResponse);
 			mailObject.setEmail(information.getEmail());
 			mailObject.setMessage(mailResponse);
 			mailObject.setSubject("verification");

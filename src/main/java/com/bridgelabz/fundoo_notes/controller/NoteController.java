@@ -26,7 +26,7 @@ import com.bridgelabz.fundoo_notes.services.NoteService;
 
 @RestController
 @RequestMapping
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(allowedHeaders="*", origins="*", exposedHeaders= {"jwtToken"})
 public class NoteController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class NoteController {
 	@PostMapping("/note/create")
 //	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response> registration(@RequestBody NoteDto information,
-			@RequestHeader("token") String token) {
+			@RequestHeader String token) {
 		System.out.println(information.getDescription());
 		service.createNote(information, token);
 		
