@@ -73,7 +73,7 @@ public class ServiceImplementation implements Services {
 //			reddisRepository.save(userInformation);
 			System.out.println("id" + " " + userInformation.getUserId());
 			System.out.println("token" + " " + generate.jwtToken(userInformation.getUserId()));
-			String mailResponse = response.formMessage("http://localhost:3000/user/verify",
+			String mailResponse = response.formMessage("http://localhost:3000/verify",
 					generate.jwtToken(userInformation.getUserId()));
 			System.out.println(mailResponse);
 			mailObject.setEmail(information.getEmail());
@@ -93,7 +93,7 @@ public class ServiceImplementation implements Services {
 	@Transactional
 	@Override
 	public UserInformation login(LoginInformation information) {
-		UserInformation user = repository.getUser(information.getEmail());
+		UserInformation user = repository.getUser(information.getUsername());
 		System.out.println("inside service " + user);
 		if (user != null) {
 
@@ -104,7 +104,7 @@ public class ServiceImplementation implements Services {
 				String mailResponse = response.formMessage("http://localhost:3000/verify",
 						generate.jwtToken(user.getUserId()));
 
-				MailServiceProvider.sendEmail(information.getEmail(), "verification", mailResponse);
+				MailServiceProvider.sendEmail(information.getUsername(), "verification", mailResponse);
 
 				return null;
 			}

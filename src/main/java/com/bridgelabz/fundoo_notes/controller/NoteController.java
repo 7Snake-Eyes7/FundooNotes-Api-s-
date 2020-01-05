@@ -26,7 +26,7 @@ import com.bridgelabz.fundoo_notes.services.NoteService;
 
 @RestController
 @RequestMapping
-@CrossOrigin(allowedHeaders="*", origins="*", exposedHeaders= {"jwtToken"})
+@CrossOrigin(origins = "http://localhost:3000")
 public class NoteController {
 
 	@Autowired

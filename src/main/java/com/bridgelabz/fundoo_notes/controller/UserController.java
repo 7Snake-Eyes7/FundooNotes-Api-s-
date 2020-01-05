@@ -64,10 +64,10 @@ public class UserController {
 	public ResponseEntity<UsersDetail> login(@RequestBody LoginInformation information) {
 
 		UserInformation userInformation = service.login(information);
-
+		System.out.println("inside login controler");
 		if (userInformation!=null) {
 			String token=generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", information.getEmail())
+			return ResponseEntity.status(HttpStatus.ACCEPTED).header("login successfull", information.getUsername())
 					.body(new UsersDetail(token, 200, information));
 
 		} else {
@@ -77,8 +77,8 @@ public class UserController {
 
 	}
 
-	@GetMapping("/user/verify")
-	public ResponseEntity<Response> userVerification(@RequestHeader String token) throws Exception {
+	@GetMapping("/user/verify/{token}")
+	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Exception {
 
 		System.out.println("token for verification" + token);
 		boolean update = service.verify(token);
@@ -104,8 +104,8 @@ public class UserController {
 
 	}
 
-	@PutMapping("user/update")
-	public ResponseEntity<Response> update(@RequestHeader String token, @RequestBody PasswordUpdate update) {
+	@PutMapping("user/update/{token}")
+	public ResponseEntity<Response> update(@PathVariable("token") String token, @RequestBody PasswordUpdate update) {
 		System.out.println("inside controller  " +update.getConfirmPassword());
 		System.out.println("inside controller  " +token);
 		boolean result = service.update(update, token);
