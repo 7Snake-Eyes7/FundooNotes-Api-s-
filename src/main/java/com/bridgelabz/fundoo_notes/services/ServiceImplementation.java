@@ -28,8 +28,7 @@ import com.bridgelabz.fundoo_notes.util.MailServiceProvider;
 @Service
 public class ServiceImplementation implements Services {
 
-	@Autowired
-	private UserInformation userInformation;
+	private UserInformation userInformation= new UserInformation();
 
 	@Autowired
 	private IUserRepository repository;

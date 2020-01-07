@@ -25,14 +25,12 @@ public class LabelServiceImplementation implements LabelService {
 	@Autowired
 	private LabelRepository repository;
 
-	@Autowired
-	private LabelInformation labelInformation;
+	private LabelInformation labelInformation = new LabelInformation();
 
 	@Autowired
 	private IUserRepository userRepository;
 
-	@Autowired
-	private UserInformation user;
+	private UserInformation user = new UserInformation();
 
 	@Autowired
 	private JwtGenerator tokenGenerator;

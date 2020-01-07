@@ -20,7 +20,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@Component
 public class LabelInformation {
 
 	@Id

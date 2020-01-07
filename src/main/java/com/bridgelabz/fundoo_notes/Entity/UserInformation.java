@@ -21,7 +21,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "usersdetail")
-@Component
 public class UserInformation {
 
 	@Id

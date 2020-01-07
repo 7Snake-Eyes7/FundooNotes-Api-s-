@@ -23,8 +23,7 @@ public class CollaboratorServiceImplementation implements CollaboratorService{
 	@Autowired
 	private JwtGenerator tokenGenerator;
 	
-	@Autowired
-	private UserInformation userInformation;
+	private UserInformation userInformation= new UserInformation();
 
 	@Autowired
 	private IUserRepository repository;

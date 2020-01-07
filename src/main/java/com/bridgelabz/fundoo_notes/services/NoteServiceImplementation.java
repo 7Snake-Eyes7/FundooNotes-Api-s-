@@ -33,14 +33,12 @@ public class NoteServiceImplementation implements NoteService {
 	@Autowired
 	private IUserRepository repository;
 
-	@Autowired
-	private UserInformation user;
+	private UserInformation user = new UserInformation();
 
 	@Autowired
 	private NoteRepository noteRepository;
 
-	@Autowired
-	private NoteInformation noteinformation;
+	private NoteInformation noteinformation = new NoteInformation();
 
 	@Autowired
 	private ElasticSearchServiceImpl elasticService;

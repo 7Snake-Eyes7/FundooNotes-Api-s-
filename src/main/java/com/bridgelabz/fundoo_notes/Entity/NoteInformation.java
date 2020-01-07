@@ -18,7 +18,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@Component
 public class NoteInformation {
 
 	@Id
